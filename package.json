@@ -7,11 +7,13 @@
     "@google-cloud/translate": "^8.2.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
-    "languagedetect": "^2.0.0"
+    "languagedetect": "^2.0.0",
+    "nodemon": "^3.1.0"
   },
   "devDependencies": {},
   "scripts": {
     "start": "node bot.js",
+    "dev": "nodemon bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Ryan, aka rland",

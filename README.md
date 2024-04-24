@@ -43,7 +43,15 @@ yarn install
 To run the bot, start 'er up with
 
 ```cmd
-yarn start
+yarn dev
+```
+
+^ the above command is for development only. It includes hot reloading so you don't have to restart the server every time you make changes.
+
+For production, please run
+
+```cmd
+yarn dev
 ```
 
 Happy not speaking in your native language!
