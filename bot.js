@@ -92,14 +92,13 @@ const handleInteractions = async(interaction) => {
 
     if (interaction.commandName === 'hardcore') {
         if(checkRoles(interaction.member, "Hardcore")){
-
             await interaction.member.roles.remove("1232715390539403375")
             await interaction.reply("hardcore has been removed!")
-            console.log(`hardcore role removed from user #${USER_ID}`)
+            console.log(`hardcore role removed from user #${interaction.member.id}`)
         } else {
             await interaction.member.roles.add("1232715390539403375") 
             await interaction.reply("hardcore has been added!")
-            console.log(`hardcore role added to user #${USER_ID}`)
+            console.log(`hardcore role added to user #${interaction.member.id}`)
         }
     }
 }
