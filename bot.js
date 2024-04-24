@@ -1,5 +1,5 @@
-import "dotenv/config"
-
+if (!process.env.prod) { import("dotenv/config") }
+    
 import { REST, Routes } from 'discord.js';
 import { Client, GatewayIntentBits } from 'discord.js';
 import { Translate } from '@google-cloud/translate/build/src/v2/index.js';
@@ -30,7 +30,7 @@ const LANG_ROLE_MAP = {
     "Spanish Native": "es"
 }
 
-async function detectLanguage(text) {
+const detectLanguage = async(text) => {
   let [detections] = await translate.detect(text);
   detections = Array.isArray(detections) ? detections : [detections];
   return detections[0]
@@ -64,16 +64,21 @@ const handleMessages = async(message) => {
     const IS_BOT = message.author.bot
     const isHardcore = checkRoles(message.member, "Hardcore")
 
+    console.log(`user #${USER_ID} (${USER_NAME}) sent message #${message.id}`)
+
     if(IS_BOT){
-        console.log(`bot user #${USER_ID} (${USER_NAME}) ignored`)
+        console.log(`bot #${USER_ID} (${USER_NAME}) ignored`)
         return
     } else if (isHardcore) {
         const detectionResults = await detectLanguage(message.content)
         const language = detectionResults.language
 
-        if(message.member.roles.cache.some(role => LANG_ROLE_MAP[role.name] === language))
+        console.log(`message #${message.id} detected as \"${language}\" with ${detectionResults.confidence * 100}% confidence`)
+
+        if(message.member.roles.cache.some(role => LANG_ROLE_MAP[role.name] === language)){
             message.delete()
-    
+            console.log(`message #${message.id} deleted for hardcore mode violation`)
+        }
     } else {
         console.info(`user #${USER_ID} (${USER_NAME}) does not have hardcore mode activated`)
         return
@@ -90,9 +95,11 @@ const handleInteractions = async(interaction) => {
 
             await interaction.member.roles.remove("1232715390539403375")
             await interaction.reply("hardcore has been removed!")
+            console.log(`hardcore role removed from user #${USER_ID}`)
         } else {
             await interaction.member.roles.add("1232715390539403375") 
             await interaction.reply("hardcore has been added!")
+            console.log(`hardcore role added to user #${USER_ID}`)
         }
     }
 }
