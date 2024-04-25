@@ -4,7 +4,6 @@
   "main": "bot.js",
   "type": "module",
   "dependencies": {
-    "@google-cloud/translate": "^8.2.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
     "franc": "^6.2.0",
