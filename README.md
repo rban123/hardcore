@@ -51,7 +51,7 @@ yarn dev
 For production, please run
 
 ```cmd
-yarn dev
+yarn start
 ```
 
 Happy not speaking in your native language!
