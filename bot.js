@@ -30,12 +30,6 @@ const LANG_ROLE_MAP = {
     "Spanish Native": "es"
 }
 
-const detectLanguage = async(text) => {
-  let [detections] = await translate.detect(text);
-  detections = Array.isArray(detections) ? detections : [detections];
-  return detections[0]
-}
-
 const COMMANDS = [
     {
       name: 'hardcore',
